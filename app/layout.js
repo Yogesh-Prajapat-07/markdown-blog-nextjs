@@ -13,6 +13,10 @@ export const metadata = {
   metadataBase: new URL(
    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
   ),
+   verification: {
+    google: "sVUlt31Gb9Ces4PbuspB_V1Fa4kEsPbxrOrBRAK9IhY" ,
+  },
+
   
 title: {
 default: "YogiBlog | Developer Blog",

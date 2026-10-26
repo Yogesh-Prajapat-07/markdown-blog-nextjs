@@ -3,8 +3,7 @@ import path from "node:path";
 
 export default function sitemap() {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
+    process.env.NEXT_PUBLIC_SITE_URL ||  "https://yogiblog.vercel.app";
   const contentDir = path.join(process.cwd(), "content");
 
   const blogUrls = fs.existsSync(contentDir)

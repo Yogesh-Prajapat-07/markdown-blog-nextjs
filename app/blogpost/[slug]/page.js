@@ -28,9 +28,11 @@ function findBlogBySlug(slug) {
     const fileContent = fs.readFileSync(filepath, "utf-8");
     const { data } = matter(fileContent);
 
-    if (data.slug === slug) {
-      return { filepath, file };
-    }
+  const fileSlug = data.slug || file.replace(/\.md$/, "");
+
+if (fileSlug === slug) {
+  return { filepath, file };
+}
   }
 
   return null;

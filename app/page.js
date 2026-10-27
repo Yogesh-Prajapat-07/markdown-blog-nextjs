@@ -9,20 +9,21 @@ export default function Home() {
   const blogs = fs
     .readdirSync(contentDir)
     .filter((file) => file.endsWith(".md"))
-    .map((file) => {
-      const slug = file.replace(/\.md$/, "");
-      const filePath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(filePath, "utf-8");
-      const { data } = matter(fileContent);
+   .map((file) => {
+  const filePath = path.join(contentDir, file);
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const { data } = matter(fileContent);
 
-      return {
-        slug,
-        title: data.title || slug,
-        description: data.description || "",
-        date: data.date ? String(data.date) : "",
-        category: data.category || "Web Development",
-      };
-    })
+  const slug = data.slug || file.replace(/\.md$/, "");
+
+  return {
+    slug,
+    title: data.title || slug,
+    description: data.description || "",
+    date: data.date ? String(data.date) : "",
+    category: data.category || "Web Development",
+  };
+})
     .sort(
       (a, b) =>
         new Date(b.date || 0).getTime() -

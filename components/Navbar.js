@@ -1,129 +1,157 @@
+
 "use client";
 
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button"
-import { Hamicon } from "lucide-react"
-import { Search } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, Search } from "lucide-react";
+import LoadingBar from "react-top-loading-bar";
+
+import { ModeToggle } from "./theme-btn";
+import { Button } from "@/components/ui/button";
+
 import {
   Sheet,
+  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 
-import { ModeToggle } from "./theme-btn";
-import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Blog", href: "/blog" },
+];
 
 export default function Navbar() {
-
   const [progress, setProgress] = useState(0);
-  const pathname = usePathname()
-  useEffect(() => {
-    setProgress(30)
-    setTimeout(() => {
-      setProgress(70)
-    }, 100)
-
-    setTimeout(() => {
-      setProgress(100)
-    }, 400)
-
-
-
-  }, [pathname])
-
-
+  const pathname = usePathname();
 
   useEffect(() => {
-    setTimeout(() => {
-      setProgress(0)
-    }, 500)
-  }, [])
+    setProgress(30);
 
+    const timer1 = setTimeout(() => setProgress(70), 100);
+    const timer2 = setTimeout(() => setProgress(100), 400);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [pathname]);
 
   return (
-    <nav className=" p-4 bg-background/50 sticky top-0  backdrop-blur border-b z-10   ">
+    <nav className="sticky top-0 z-50 border-b bg-background/80 p-4 backdrop-blur-md">
       <LoadingBar
         color="oklch(0.62 0.26 305.32)"
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <div className="container mx-auto flex justify-between  items-center">
-        <Link href="/" className=" text-2xl font-bold">YogiBlog</Link>
 
+      <div className="container mx-auto flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="text-2xl font-bold tracking-tight"
+        >
+          YogiBlog
+        </Link>
 
-        <div className=" hidden md:flex  space-x-6 items-center">
-          <ul className=" md:flex md:space-x-6 space-y-4 md:space-y-0 mt-4 md:mt-0 items-center">
-            <li><Link href="/" className="hover:scale-105 font-semibold transition-transform duration-300">Home</Link></li>
-            <li><Link href="/about" className="hover:scale-105 font-semibold transition-transform duration-300">About</Link></li>
-            <li><Link href="/blog" className="hover:scale-105 font-semibold transition-transform duration-300">Blog</Link></li>
+        {/* Desktop Navigation */}
+        <div className="hidden items-center md:flex">
+          <ul className="flex items-center gap-6">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  aria-current={pathname === link.href ? "page" : undefined}
+                 className={`font-medium transition-colors duration-200 hover:text-purple-500 ${
+  pathname === link.href
+    ? "text-purple-500"
+    : "text-foreground"
+}`}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+
             <li>
               <Link
                 href="/blog/search"
                 aria-label="Search blogs"
                 title="Search blogs"
-                className="flex items-center hover:scale-110 transition-transform duration-300"
+                className="flex items-center transition-colors hover:text-purple-400"
               >
                 <Search size={20} />
               </Link>
             </li>
-            <div className="flex ">
 
-
-
+            <li>
               <ModeToggle />
-            </div>
+            </li>
           </ul>
         </div>
 
+        {/* Mobile Navigation */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ModeToggle />
 
-        <div className=" flex items-center gap-2 md:hidden">
-          <span className="mx-2">
-            <ModeToggle />
-          </span>
           <Sheet>
-            <SheetTrigger>
-
-              <button className=" ">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  (  <path strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /> )
-                </svg>
-              </button>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Open navigation menu"
+              >
+                <Menu className="h-6 w-6" />
+              </Button>
             </SheetTrigger>
 
-            <SheetContent>
+ <SheetContent side="right">
               <SheetHeader>
-                <SheetTitle className="font-bold my-4">YogiBlog</SheetTitle>
-                <SheetDescription>
-                  <div className="flex flex-col gap-6 items-center">
-                    <ul className=" md:flex md:space-x-6 space-y-4 md:space-y-0 mt-4 md:mt-0 items-center">
-                      <li><Link href="/" className="hover:text-blue-300">Home</Link></li>
-                      <li><Link href="/about" className="hover:text-blue-300">About</Link></li>
-                      <li><Link href="/blog" className="hover:text-blue-300">Blog</Link></li>
-                      <li><Link href="/contact" className="hover:text-blue-300">Contact</Link></li>
-                      <li>
-  <Link
-    href="/blog/search"
-    className="flex items-center gap-2 hover:text-blue-300"
-  >
-    <Search size={18} />
-    Search Blogs
-  </Link>
-</li>
-                     
-                    </ul>
-                  </div>
-                </SheetDescription>
+                <SheetTitle className="text-left text-2xl font-bold">
+                  YogiBlog
+                </SheetTitle>
               </SheetHeader>
+
+              <ul className="mt-8 flex flex-col gap-2">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <SheetClose asChild>
+                      <Link
+                        href={link.href}
+                        aria-current={
+                          pathname === link.href ? "page" : undefined
+                        }
+                       className={`block rounded-md px-4 py-3 font-medium transition-colors duration-200 hover:bg-purple-500/10 hover:text-purple-500 ${
+  pathname === link.href
+    ? "bg-purple-500/10 text-purple-500"
+    : "text-foreground"
+}`}
+                      >
+                        {link.name}
+                      </Link>
+                    </SheetClose>
+                  </li>
+                ))}
+
+                <li>
+                  <SheetClose asChild>
+                    <Link
+                      href="/blog/search"
+                     className="flex items-center gap-3 rounded-md px-4 py-3 font-medium transition-colors duration-200 hover:bg-purple-500/10 hover:text-purple-500"
+                    >
+                      <Search size={18} />
+                      Search Blogs
+                    </Link>
+                  </SheetClose>
+                </li>
+              </ul>
             </SheetContent>
           </Sheet>
         </div>
-
       </div>
     </nav>
   );

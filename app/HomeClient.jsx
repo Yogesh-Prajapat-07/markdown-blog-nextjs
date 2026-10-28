@@ -86,7 +86,7 @@ export default function HomeClient({ blogs }) {
               Discover what makes our platform stand out and how it can benefit you.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {/* Feature Card 1 */}
             <div className="flex flex-col items-center p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl border border-gray-200 dark:border-gray-700">
               <div className="p-4 rounded-full bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-200 mb-4">
@@ -94,7 +94,7 @@ export default function HomeClient({ blogs }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
+              <h3 className="mb-2 text-xl font-bold leading-snug text-gray-900 sm:text-2xl dark:text-white">
                Modern Web Development
               </h3>
               <p className="font-light text-gray-600 dark:text-gray-400 text-center">
@@ -109,7 +109,7 @@ export default function HomeClient({ blogs }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
+              <h3 className="mb-2 text-xl font-bold leading-snug text-gray-900 sm:text-2xl dark:text-white">
                Practical Coding Tutorials
               </h3>
               <p className="font-light text-gray-600 dark:text-gray-400 text-center">
@@ -124,7 +124,7 @@ export default function HomeClient({ blogs }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
+              <h3 className="mb-2 text-xl font-bold leading-snug text-gray-900 sm:text-2xl dark:text-white">
                Full Stack Development
               </h3>
               <p className="font-light text-gray-600 dark:text-gray-400 text-center">
